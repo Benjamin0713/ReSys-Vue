@@ -31,9 +31,6 @@ export default {
     Rate(){
       this.$router.push("/Rate");
     },
-    predict(){
-      this.$router.push("/");
-    },
     User(){
       this.$router.push("/User");
     }

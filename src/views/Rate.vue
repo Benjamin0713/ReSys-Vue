@@ -67,7 +67,6 @@ export default {
     axios.get('http://127.0.0.1:5000/rate/get/1/15/').then(resp => {
       console.log(resp)
       _this.tableData = resp.data
-      // console.log(resp.data)
       _this.total = resp.data.totalElements
     })
   }
