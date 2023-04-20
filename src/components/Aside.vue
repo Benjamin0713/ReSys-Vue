@@ -13,7 +13,7 @@
         <span slot="title" @click="Movie">电影信息</span>
       </el-menu-item>
       <el-menu-item index="3">
-        <i class="el-icon-star"></i>
+        <i class="el-icon-star-off"></i>
         <span slot="title" @click="Rate">评分信息</span>
       </el-menu-item>
     </el-menu>
@@ -26,10 +26,10 @@ export default {
   components:{},
   methods:{
     Movie(){
-      this.$router.push("/DingHistory");
+      this.$router.push("/Movie");
     },
     Rate(){
-      this.$router.push("/CaiHistory");
+      this.$router.push("/Rate");
     },
     predict(){
       this.$router.push("/");

@@ -19,29 +19,33 @@
       </el-table-column>
       <el-table-column
           prop="uid"
-          label="用户编号">
+          label="用户编号"
+          align="center">
       </el-table-column>
       <el-table-column
           prop="gender"
-          label="性别">
+          label="性别"
+          align="center">
       </el-table-column>
       <el-table-column
           prop="age"
-          label="年龄">
+          label="年龄"
+          align="center">
       </el-table-column>
       <el-table-column
           prop="occupation"
-          label="职业编号">
+          label="职业编号"
+          align="center">
       </el-table-column>
       <el-table-column
           fixed="right"
           label="操作"
-          width="100">
+          align="center">
         <template slot-scope="scope">
-          <el-button @click="handleEdit(scope.row)" type="text">编辑</el-button>
-          <el-popconfirm title="确定删除">
-            <el-button slot="reference" type="text">删除</el-button>
-          </el-popconfirm>
+          <el-button @click="ReSys()" type="primary">推荐</el-button>
+<!--          <el-popconfirm title="确定删除">-->
+<!--            <el-button slot="reference" type="text">删除</el-button>-->
+<!--          </el-popconfirm>-->
         </template>
       </el-table-column>
     </el-table>
@@ -49,7 +53,7 @@
       <el-pagination
           background
           layout="prev, pager, next"
-          :page-size="5"
+          :page-size="15"
           :total="total"
           @current-change="page">
       </el-pagination>
@@ -81,27 +85,25 @@
 
 <script>
 export default {
-  name: 'Home',
+  name: 'User',
   components: {
 
   },
   data(){
     return{
-      form:{},
-      search:'',
-      dialogVisible:false,
+      // form:{},
+      // search:'',
+      // dialogVisible:false,
       total:null,
-      tableData: [
-
-      ]
+      tableData: []
     }
   },
   methods:{
     page(currentPage){
-      const _this = this
-      axios.get('http://127.0.0.1:5000/user/get/'+currentPage+'/5/').then(function (resp) {
+      var _this = this
+      axios.get('http://127.0.0.1:5000/user/get/'+currentPage+'/15/').then(resp => {
         console.log(resp)
-        _this.tableData = resp.data.content
+        _this.tableData = resp.data
         _this.total = resp.data.totalElements
       })
     }
@@ -116,10 +118,11 @@ export default {
     // }
   },
   created(){
-    const _this = this
-    axios.get('http://127.0.0.1:5000/user/get/1/5/').then(function (resp) {
+    var _this = this
+    axios.get('http://127.0.0.1:5000/user/get/1/15/').then(resp => {
       console.log(resp)
-      _this.tableData = resp.data.content
+      _this.tableData = resp.data
+      // console.log(resp.data)
       _this.total = resp.data.totalElements
     })
   }

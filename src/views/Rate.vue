@@ -1,0 +1,75 @@
+<template>
+  <div style="padding: 10px">
+    <div style="margin: 10px 0">
+    </div>
+    <el-table
+        :data="tableData"
+        stripe
+        style="width: 100%">
+      <el-table-column
+          prop="id"
+          label="ID"
+          sortable
+      >
+      </el-table-column>
+      <el-table-column
+          prop="uid"
+          label="用户编号"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          prop="mid"
+          label="电影编号"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          prop="rates"
+          label="评分"
+          align="center">
+      </el-table-column>
+    </el-table>
+    <div style="margin: 10px 0">
+      <el-pagination
+          background
+          layout="prev, pager, next"
+          :page-size="15"
+          :total="total"
+          @current-change="page">
+      </el-pagination>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'Rate',
+  components: {
+
+  },
+  data(){
+    return{
+      total:null,
+      tableData: []
+    }
+  },
+  methods:{
+    page(currentPage){
+      var _this = this
+      axios.get('http://127.0.0.1:5000/rate/get/'+currentPage+'/15/').then(resp => {
+        console.log(resp)
+        _this.tableData = resp.data
+        _this.total = resp.data.totalElements
+      })
+    }
+  },
+  created(){
+    var _this = this
+    axios.get('http://127.0.0.1:5000/rate/get/1/15/').then(resp => {
+      console.log(resp)
+      _this.tableData = resp.data
+      // console.log(resp.data)
+      _this.total = resp.data.totalElements
+    })
+  }
+}
+</script>

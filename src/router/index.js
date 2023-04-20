@@ -18,6 +18,14 @@ const routes = [
     component: () => import("@/views/User.vue")
   },
   {
+    path: "/movie",
+    component: () => import("@/views/Movie.vue")
+  },
+  {
+    path: "/rate",
+    component: () => import("@/views/Rate.vue")
+  },
+  {
     path: "/DingHistory",
     component: () => import("@/views/DingHistory.vue")
   },
@@ -25,9 +33,13 @@ const routes = [
     path: "/CaiHistory",
     component: () => import("@/views/CaiHistory.vue")
   },
+  // {
+  //   path: "/",
+  //   component: () => import("@/views/Prediction.vue")
+  // },
   {
     path: "/",
-    component: () => import("@/views/Prediction.vue")
+    component: () => import("@/views/User.vue")
   },
   {
     path: '/echarts',
