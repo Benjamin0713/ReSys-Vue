@@ -19,10 +19,6 @@ const routes = [
   {
     path: "/",
     component: () => import("@/views/Home.vue")
-  },
-  {
-    path: '/echarts',
-    component: () => import("@/components/Echarts")
   }
 ]
 
