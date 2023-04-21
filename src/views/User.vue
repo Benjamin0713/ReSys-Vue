@@ -1,9 +1,6 @@
 <template>
   <div style="padding: 10px">
     <div style="margin: 10px 0">
-<!--      <el-button type="primary" @click="add">新增</el-button>-->
-<!--      <el-button type="primary">导入</el-button>-->
-<!--      <el-button type="primary">导出</el-button>-->
 <!--      <el-input v-model="search" placeholder="请输入内容" style="width: 20%; margin-left: 10px;margin-right: 10px" clearable></el-input>-->
 <!--      <el-button type="primary">查询</el-button>-->
     </div>
@@ -42,10 +39,7 @@
           label="操作"
           align="center">
         <template slot-scope="scope">
-          <el-button @click="ReSys()" type="primary">推荐</el-button>
-<!--          <el-popconfirm title="确定删除">-->
-<!--            <el-button slot="reference" type="text">删除</el-button>-->
-<!--          </el-popconfirm>-->
+          <el-button @click="Re(scope.row)" type="primary">推荐</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -58,26 +52,22 @@
           @current-change="page">
       </el-pagination>
 
-<!--      <el-dialog title="提示" :visible.sync="dialogVisible" width="30%">-->
-<!--        <el-form label-width="120px">-->
-<!--          <el-form-item :model="form" label="用户编号">-->
-<!--          <el-input v-model="form.uid" style="width: 80%"></el-input>-->
-<!--          </el-form-item>-->
-<!--          <el-form-item :model="form" label="性别">-->
-<!--            <el-input v-model="form.gender" style="width: 80%"></el-input>-->
-<!--          </el-form-item>-->
-<!--          <el-form-item :model="form" label="年龄">-->
-<!--            <el-input v-model="form.age" style="width: 80%"></el-input>-->
-<!--          </el-form-item>-->
-<!--          <el-form-item :model="form" label="职业编号">-->
-<!--            <el-input v-model="form.occupation" style="width: 80%"></el-input>-->
-<!--          </el-form-item>-->
-<!--        </el-form>-->
-<!--        <span slot="footer" class="dialog-footer">-->
-<!--          <el-button @click="dialogVisible = false">取 消</el-button>-->
-<!--          <el-button type="primary" @click="save">确 定</el-button>-->
-<!--        </span>-->
-<!--      </el-dialog>-->
+      <el-dialog title="提示:请输入需要推荐几部电影" :visible.sync="dialogVisible" width="30%">
+        <el-form label-width="120px">
+          <el-form-item :model="form" label="用户">
+            <el-input v-model="form.uid" :disabled="true" style="width: 80%"></el-input>
+          </el-form-item>
+        </el-form>
+        <el-form label-width="120px">
+          <el-form-item :model="form" label="数量">
+          <el-input v-model="form.num" style="width: 80%"></el-input>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="resys(form)">确 定</el-button>
+        </span>
+      </el-dialog>
 
     </div>
   </div>
@@ -91,9 +81,8 @@ export default {
   },
   data(){
     return{
-      // form:{},
-      // search:'',
-      // dialogVisible:false,
+      form:{},
+      dialogVisible:false,
       total:null,
       tableData: []
     }
@@ -106,16 +95,24 @@ export default {
         _this.tableData = resp.data
         _this.total = resp.data.totalElements
       })
+    },
+    Re(row){
+      this.dialogVisible = true
+      this.form = {}
+      this.form.uid = row.uid
+    },
+    resys(form){
+      console.log(form.uid)
+      console.log(form.num)
+
+      this.$router.push({
+        path:'/Result',
+        query:{
+          num: form.num,
+          uid: form.uid
+        }
+      })
     }
-    // add(){
-    //   this.dialogVisible = true
-    //   this.form = {}
-    // },
-    // save(){
-    //   axios.post('http://127.0.0.1:5000/user',this.form).then(resp => {
-    //     console.log(resp)
-    //   })
-    // }
   },
   created(){
     var _this = this

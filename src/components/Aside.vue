@@ -20,7 +20,10 @@
         <i class="el-icon-star-off"></i>
         <span slot="title" @click="Rate">评分信息</span>
       </el-menu-item>
-
+      <el-menu-item index="5">
+        <i class="el-icon-chat-line-square"></i>
+        <span slot="title" @click="Recommend">电影推荐</span>
+      </el-menu-item>
     </el-menu>
   </div>
 </template>
@@ -41,6 +44,9 @@ export default {
     },
     Home(){
       this.$router.push("/")
+    },
+    Recommend(){
+      this.$router.push("/Result")
     }
   }
 }
